@@ -16,7 +16,22 @@ header{background:var(--c);border-bottom:3px solid var(--g);padding:10px 18px;di
 .tbtn{border:2px solid var(--l);background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer;font-size:13px;color:var(--m)}
 main{max-width:680px;margin:0 auto;padding:18px}
 .hero{background:linear-gradient(135deg,var(--gd),var(--g) 60%,#b5d56a);color:#fff;border-radius:22px;padding:26px 22px;position:relative;overflow:hidden;margin-bottom:22px;box-shadow:0 6px 0 var(--gk)}
-.hero:after{content:"🌳";position:absolute;right:-10px;bottom:-24px;font-size:130px;opacity:.22}
+.hero>*{position:relative}.hero>.tmp{position:absolute;right:8px;bottom:-4px;width:150px;color:#fff;opacity:.22;pointer-events:none}
+.pr{display:flex;align-items:center;gap:10px;max-width:440px}.pr .bar{flex:1}
+.tm{width:38px;color:#fff;flex:none}.tm.gold{color:var(--gold)}
+.chestcard{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#fff7df,#ffe9a8);border:3px solid var(--gold);border-radius:20px;padding:14px 18px;margin-bottom:22px;cursor:pointer;box-shadow:0 6px 0 var(--gold2)}
+.chestcard:active{transform:translateY(3px);box-shadow:0 3px 0 var(--gold2)}
+.chestcard b{font-size:19px;color:#7a4a1c}.chestcard small{display:block;color:#8a6a3a}
+.chest{width:84px;flex:none}.chest svg{width:100%;display:block}
+.go{margin-left:auto;font-weight:800;color:#7a4a1c;white-space:nowrap}
+.shake{animation:shake .6s}
+@keyframes shake{20%{transform:rotate(-8deg) scale(1.1)}40%{transform:rotate(8deg) scale(1.1)}60%{transform:rotate(-6deg) scale(1.15)}80%{transform:rotate(6deg) scale(1.15)}}
+.rtop{text-align:center;margin-bottom:14px}.rtop .chest{width:130px;margin:0 auto;animation:pop .5s}
+.rsec{background:#fff;border:2px solid var(--l);border-radius:18px;padding:14px 16px;margin-bottom:16px}
+.rsec h3{margin:0 0 6px;color:var(--gk)}
+.rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--l)}
+.rh b{flex:1;min-width:120px}
+.btn.sm{padding:8px 14px;font-size:12px;margin:0;box-shadow:0 3px 0 var(--gd)}.btn.b.sm{box-shadow:0 3px 0 #1d5a85}
 .hero h2{margin:0 0 4px;font-size:24px}
 .hero p{margin:0 0 16px;opacity:.95}
 .bar{height:16px;background:rgba(255,255,255,.35);border-radius:10px;overflow:hidden;max-width:420px}
@@ -135,6 +150,31 @@ const chOpen=c=>test||c===0||chDone(c-1);
 const stepOpen=(c,i)=>test||(chOpen(c)&&(i===0||done(c,i-1)));
 const xp=()=>Object.keys(prog).length*XP_STEP+C.filter((_,c)=>chDone(c)).length*XP_CH;
 function labels(c){const n={v:0};return C[c].it.map(x=>{if(x[0]==="v"){n.v++;return"Video "+n.v}return{d:"Lectura (PDF)",s:"Presentación",q:"Cuestionario",a:"App móvil"}[x[0]]})}
+const TEMPLE=`<svg viewBox="0 0 120 108" fill="currentColor"><circle cx="60" cy="6" r="3.5"/><path d="M60 10l7 30H53z"/><rect x="49" y="40" width="22" height="50" rx="2"/><path d="M32 46l8 20H24z"/><rect x="24" y="66" width="16" height="24"/><path d="M88 46l8 20H80z"/><rect x="80" y="66" width="16" height="24"/><rect x="8" y="90" width="104" height="14" rx="3"/><rect x="56" y="62" width="8" height="22" rx="4" fill="#fff" opacity=".55"/></svg>`;
+function chestSVG(open){
+  const gold=`<rect x="26" y="${open?34:12}" width="8" height="${open?40:62}" fill="#f2b134"/><rect x="66" y="${open?34:12}" width="8" height="${open?40:62}" fill="#f2b134"/>`;
+  if(!open) return `<svg viewBox="0 0 100 80"><rect x="8" y="34" width="84" height="40" rx="5" fill="#a0642a"/><path d="M8 36Q8 8 50 8Q92 8 92 36z" fill="#c07a38"/>${gold}<rect x="8" y="34" width="84" height="5" fill="#7a4a1c"/><rect x="42" y="30" width="16" height="18" rx="3" fill="#f2b134" stroke="#d6951a" stroke-width="2"/><circle cx="50" cy="39" r="2.5" fill="#7a4a1c"/></svg>`;
+  return `<svg viewBox="0 0 100 80"><path d="M12 32Q10 2 50 2Q90 2 88 32z" fill="#8a5420"/><rect x="8" y="34" width="84" height="40" rx="5" fill="#a0642a"/>${gold}<ellipse cx="50" cy="34" rx="42" ry="7" fill="#ffd95a"/><circle cx="34" cy="30" r="6" fill="#f2b134"/><circle cx="52" cy="27" r="6" fill="#ffe27a"/><circle cx="68" cy="31" r="6" fill="#f2b134"/><rect x="42" y="50" width="16" height="14" rx="3" fill="#f2b134" stroke="#d6951a" stroke-width="2"/></svg>`;
+}
+const R=[
+ {t:"Recursos para Líderes",ic:"🧭",it:[["v","H0tEk0bUUJI"],["d","15aFk3Vpf0t3aGSOuZ94E52SHipNwR6Ry"],["d","1Z1RVQGodtYP8zH0mS_u1DuVhRIQmXA1p"],["d","154CG4bb-lL0Tcjk0LnLb1oT3zb1d2_tY"],["d","1ID5g_dYt4Z1DuwAcjqmXfkkDKelYAdzh"]]},
+ {t:"Recursos y materiales para niños",ic:"🧒",it:[["d","1I_qC9dNIkSdaYVqG77FtVErfcLUubHWr"],["d","1dLN8iM18NsgoWCn4Dg_V1h_LcUGanR61"],["d","1Ae3i-fa5F7dFaj3cV6DqOwd7xnnAdf7g"],["d","1_bMqKbuAVd5q8Dle5JeMnYSMkytcrcHO"]]},
+ {t:"Materiales sobre Historia Familiar y Templo",ic:"🏛️",it:[["d","1uMBnChwiZ2YMWhpOx7FmoDvwkojiiADt"],["l","https://www.familysearch.org/es/gettingstarted/","FamilySearch: Primeros pasos"],["d","1SmKFM7FcKQl6gtne4-mHZkpzEF1EWFcj"]]}
+];
+function openChest(){$("chest").classList.add("shake");setTimeout(showRes,650)}
+function showRes(){
+  let h=`<button class="back" onclick="home()">← Volver al camino</button><div class="rtop"><div class="chest">${chestSVG(true)}</div><h2 style="margin:8px 0 2px;color:var(--gk)">🎁 Otros Recursos</h2><div class="tag">Material extra. No forma parte de la certificación y siempre está disponible.</div></div>`;
+  R.forEach(g=>{let n=0;h+=`<div class="rsec"><h3>${g.ic} ${g.t}</h3>`;
+    g.it.forEach(x=>{const k=x[0],lab=k==="v"?"Video":k==="l"?x[2]:"Material "+(++n);
+      const open=k==="v"?"https://www.youtube.com/watch?v="+x[1]:k==="l"?x[1]:"https://drive.google.com/file/d/"+x[1]+"/view";
+      h+=`<div class="rr"><div class="rh"><span>${{v:"▶️",d:"📄",l:"🌐"}[k]}</span><b>${lab}</b>${k==="l"?"":`<button class="btn b sm" onclick="pv(this,'${k}','${x[1]}')">Ver</button>`}<a class="btn sm" target="_blank" rel="noopener" href="${open}">Abrir</a></div><div class="pv"></div></div>`});
+    h+=`</div>`});
+  $("app").innerHTML=h;scrollTo(0,0);
+}
+function pv(b,k,id){const box=b.closest(".rr").querySelector(".pv");
+  if(box.innerHTML){box.innerHTML="";b.textContent="Ver";return}
+  box.innerHTML=k==="v"?`<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${id}" allowfullscreen></iframe></div>`:`<div class="frame doc"><iframe src="https://drive.google.com/file/d/${id}/preview"></iframe></div>`;
+  b.textContent="Cerrar"}
 function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",2800)}
 function toggleTest(){test=!test;$("tb").textContent=test?"🔒 Salir de prueba":"🔓 Modo prueba";home()}
 function reset(){if(confirm("¿Borrar todo tu progreso?")){prog={};save();home()}}
@@ -143,10 +183,11 @@ function reset(){if(confirm("¿Borrar todo tu progreso?")){prog={};save();home()
 function home(){
   $("xp").textContent="⚡ "+xp()+" XP";
   const tot=C.reduce((a,c)=>a+c.it.length,0), n=Object.keys(prog).length, fin=C.filter((_,c)=>chDone(c)).length;
-  let h=`<div class="hero"><h2>Tu camino a Consultor</h2><p>Completa cada capítulo, gana insignias y avanza paso a paso.</p>
-  <div class="bar"><i style="width:${n/tot*100}%"></i></div>
+  let h=`<div class="hero"><div class="tmp">${TEMPLE}</div><h2>Tu camino a Consultor</h2><p>Completa cada capítulo, gana insignias y avanza paso a paso.</p>
+  <div class="pr"><span class="tm">${TEMPLE}</span><div class="bar"><i style="width:${n/tot*100}%"></i></div><span class="tm ${n===tot?"gold":""}">${TEMPLE}</span></div>
   <div class="stats"><span>✅ ${n}/${tot} pasos</span><span>🏅 ${fin}/${C.length} insignias</span></div>
-  <div class="shelf">${C.map((c,ci)=>`<div class="sb ${chDone(ci)?"on":""}" title="${c.b[0]}">${c.b[1]}</div>`).join("")}</div></div>`;
+  <div class="shelf">${C.map((c,ci)=>`<div class="sb ${chDone(ci)?"on":""}" title="${c.b[0]}">${c.b[1]}</div>`).join("")}</div></div>
+  <div class="chestcard" onclick="openChest()"><div class="chest" id="chest">${chestSVG(false)}</div><div><b>Otros Recursos</b><small>Tesoro extra para líderes, niños, historia familiar y templo. ¡Todo desbloqueado!</small></div><span class="go">Abrir ▸</span></div>`;
   C.forEach((c,ci)=>{
     const open=chOpen(ci), L=labels(ci), ok=chDone(ci);
     let cur=c.it.findIndex((_,i)=>!done(ci,i));
