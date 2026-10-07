@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultores de Historia Familiar</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--g:#58cc02;--gd:#46a302;--b:#1cb0f6;--y:#ffc800;--bg:#f7f7f7;--c:#fff;--t:#3c3c3c;--m:#777;--l:#e5e5e5}
+@media(prefers-color-scheme:dark){:root{--bg:#131f24;--c:#1f2c34;--t:#f1f7fb;--m:#9bb;--l:#37464f}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--t)}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--c);border-bottom:2px solid var(--l);position:sticky;top:0;z-index:5}
+h1{font-size:18px;margin:0;color:var(--g)}
+.user{display:flex;align-items:center;gap:10px;font-size:14px}
+.user img{width:32px;height:32px;border-radius:50%}
+.xp{font-weight:700;color:var(--y)}
+main{max-width:640px;margin:0 auto;padding:20px}
+.btn{border:0;border-bottom:4px solid var(--gd);background:var(--g);color:#fff;font-weight:800;padding:12px 20px;border-radius:14px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;font-size:14px;text-decoration:none;display:inline-block}
+.btn:active{transform:translateY(2px);border-bottom-width:2px}
+.btn.alt{background:var(--b);border-color:#1899d6}
+.btn.ghost{background:transparent;color:var(--m);border:2px solid var(--l);border-bottom-width:4px}
+.btn[disabled]{background:var(--l);border-color:var(--l);color:var(--m);cursor:default}
+.card{background:var(--c);border:2px solid var(--l);border-radius:16px;padding:18px;margin-bottom:16px}
+#login{text-align:center;padding-top:60px}
+#login h2{font-size:26px}
+.bar{height:14px;background:var(--l);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--g);transition:width .4s}
+.sec{margin:28px 0 8px;display:flex;justify-content:space-between;align-items:center}
+.sec h3{margin:0}
+.path{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:10px}
+.node{width:76px;height:76px;border-radius:50%;border:0;border-bottom:7px solid var(--gd);background:var(--g);font-size:30px;cursor:pointer;color:#fff;position:relative}
+.node.done{background:var(--y);border-color:#d9a900}
+.node.lock{background:var(--l);border-color:#c9c9c9;cursor:not-allowed;filter:grayscale(1)}
+.node:nth-child(2){transform:translateX(34px)}.node:nth-child(3){transform:translateX(-10px)}.node:nth-child(4){transform:translateX(-34px)}
+.lbl{font-size:12px;color:var(--m);text-align:center;margin-top:-6px}
+.badges{display:flex;gap:12px;flex-wrap:wrap}
+.badge{width:96px;text-align:center;font-size:12px}
+.badge .ic{font-size:40px;display:block;filter:grayscale(1) opacity(.35)}
+.badge.on .ic{filter:none}
+.back{background:none;border:0;color:var(--b);font-weight:700;cursor:pointer;margin-bottom:10px;font-size:15px}
+.frame{position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;margin:10px 0;background:#000}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.frame.doc{padding-top:120%}
+.vid{border-top:1px solid var(--l);padding-top:12px;margin-top:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;padding:14px 22px;border-radius:14px;font-weight:700;display:none;z-index:9;text-align:center}
+.small{font-size:13px;color:var(--m)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🌳 Consultores de Historia Familiar</h1>
+  <div class="user" id="userbox" hidden>
+    <span class="xp" id="xp"></span><img id="pic" alt=""><button class="btn ghost" style="padding:6px 10px" onclick="logout()">Salir</button>
+  </div>
+</header>
+
+<main id="login">
+  <h2>¡Bienvenido!</h2>
+  <p class="small">Inicia sesión con tu cuenta de Google para guardar tu progreso y ganar insignias.</p>
+  <div id="gbtn" style="display:flex;justify-content:center;margin-top:20px"></div>
+</main>
+
+<main id="app" hidden></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ CONFIGURACIÓN ============ */
+// 1) Pega aquí tu Client ID de Google Cloud Console (Credenciales > OAuth > Aplicación web)
+// Mientras sea false, el sitio abre directo en modo demo (sin login). Cambia a true cuando activemos la autenticación.
+const REQUIRE_LOGIN = false;
+const GOOGLE_CLIENT_ID = "TU_CLIENT_ID.apps.googleusercontent.com";
+// 2) Opcional: restringe a un dominio (ej. "midominio.org"). Déjalo vacío para permitir cualquier cuenta de Google.
+const ALLOWED_DOMAIN = "";
+
+/* ============ CONTENIDO (agrega aquí las 12 secciones) ============ */
+// pasos: {t:"lectura"|"video"|"quiz", ...}
+const SECTIONS = [
+ { id:"intro", titulo:"Introducción", sub:"Mi llamamiento como consultor", icon:"📖", badge:{n:"Llamado", ic:"🎖️"},
+   steps:[
+    {t:"lectura", titulo:"Lee el cuadernillo", desc:"Cuadernillo PDF: Mi llamamiento como consultor.", embed:"https://drive.google.com/file/d/1Mm8itovRuzTEz-EAi-DTcyuSZkC3MMzC/preview", link:"https://drive.google.com/file/d/1Mm8itovRuzTEz-EAi-DTcyuSZkC3MMzC/view"},
+    {t:"video", titulo:"Mira los videos (en orden)", videos:[
+      {n:"1. Mi llamamiento como consultor", id:"0z-S2GcvtMA"},
+      {n:"2. Genaro como consultor", id:"svaU-3OQ4i4"},
+      {n:"3. En qué consiste mi llamamiento", id:"aqmkkYuXXMk"},
+      {n:"4. Por qué fui llamado como consultor", id:"hwRLNbkPHy0"}]},
+    {t:"quiz", titulo:"Contesta el cuestionario", desc:"Abre la presentación/cuestionario y respóndelo.", link:"https://docs.google.com/presentation/d/e/2PACX-1vR1yrsIXnT1Ih_DSd8bWv_fNAUQYglrw_RRrmwRw07_2LRKzNRKL1nyYNVV9tjnfoF65POmo-WK1Spa/pub?start=false&loop=false&delayms=60000"}
+   ]},
+ { id:"cap1", titulo:"Capítulo 1", sub:"Introducción a FamilySearch", icon:"🔎", badge:{n:"Explorador", ic:"🧭"},
+   steps:[
+    {t:"lectura", titulo:"Lee el primer capítulo", desc:"Lee el capítulo 1 completo.", link:""}, // TODO: pega aquí el link del capítulo
+    {t:"video", titulo:"Mira los videos", videos:[
+      {n:"Video 1", id:"mxOiiC9XTIM"},
+      {n:"Video 2", id:"hiFtNRFkOx0"}]},
+    {t:"quiz", titulo:"Contesta el cuestionario", desc:"Responde el formulario de Google.", link:"https://forms.gle/CigjGSsz7t4hahnXA"}
+   ]}
+];
+const XP_STEP = 10, XP_SECTION = 30;
+
+/* ============ ESTADO ============ */
+let user = null, prog = {};
+const $ = id => document.getElementById(id);
+const key = () => "cons_prog_" + user.sub;
+const save = () => localStorage.setItem(key(), JSON.stringify(prog));
+// Nota: ahora el progreso se guarda en el navegador. Para guardarlo en Hostinger (MySQL/PHP) reemplaza save()/load() por fetch() a tu API.
+function load(){ try{prog = JSON.parse(localStorage.getItem(key())) || {}}catch(e){prog={}} }
+const done = (s,i) => !!prog[s+":"+i];
+const secDone = s => SECTIONS.find(x=>x.id===s).steps.every((_,i)=>done(s,i));
+const unlocked = idx => idx===0 || secDone(SECTIONS[idx-1].id);
+const totalXP = () => Object.keys(prog).filter(k=>prog[k]===true).length*XP_STEP + SECTIONS.filter(s=>secDone(s.id)).length*XP_SECTION;
+
+/* ============ GOOGLE LOGIN ============ */
+function parseJwt(t){const b=t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(atob(b).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join("")))}
+function onCred(r){
+  const p = parseJwt(r.credential);
+  if(ALLOWED_DOMAIN && p.hd!==ALLOWED_DOMAIN){alert("Usa tu cuenta @"+ALLOWED_DOMAIN);return}
+  user = {sub:p.sub,name:p.name,email:p.email,pic:p.picture};
+  localStorage.setItem("cons_user",JSON.stringify({user,exp:p.exp*1000}));
+  start();
+}
+function logout(){localStorage.removeItem("cons_user");if(window.google)google.accounts.id.disableAutoSelect();location.reload()}
+function initGoogle(){
+  if(!window.google){return setTimeout(initGoogle,200)}
+  google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onCred});
+  google.accounts.id.renderButton($("gbtn"),{theme:"outline",size:"large",text:"signin_with",locale:"es"});
+}
+window.onload = () => {
+  if(!REQUIRE_LOGIN){user={sub:"demo",name:"Estudiante",email:"",pic:""};return start()}
+  try{const s=JSON.parse(localStorage.getItem("cons_user"));if(s&&s.exp>Date.now()){user=s.user;return start()}}catch(e){}
+  initGoogle();
+};
+
+/* ============ UI ============ */
+function start(){
+  load();
+  $("login").hidden=true;$("app").hidden=false;$("userbox").hidden=false;
+  if(user.pic) $("pic").src=user.pic; else $("pic").style.display="none";
+  if(!REQUIRE_LOGIN){
+    const b=document.querySelector("#userbox button");
+    b.textContent="Reiniciar demo";
+    b.onclick=()=>{if(confirm("¿Borrar tu progreso de prueba?")){localStorage.removeItem(key());prog={};home()}};
+  }
+  home();
+}
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",2600)}
+function updXP(){$("xp").textContent="⚡ "+totalXP()+" XP"}
+
+function home(){
+  updXP();
+  const total = SECTIONS.reduce((a,s)=>a+s.steps.length,0);
+  const n = SECTIONS.reduce((a,s)=>a+s.steps.filter((_,i)=>done(s.id,i)).length,0);
+  let h = `<div class="card"><b>¡Hola, ${user.name.split(" ")[0]}!</b><div class="small" style="margin:4px 0 10px">Progreso del curso: ${n} de ${total} pasos</div><div class="bar"><i style="width:${total?n/total*100:0}%"></i></div></div>`;
+  SECTIONS.forEach((s,idx)=>{
+    const ok = unlocked(idx);
+    h += `<div class="sec"><h3>${s.icon} Sección ${idx+1}: ${s.titulo}</h3><span class="small">${s.sub}</span></div><div class="path">`;
+    s.steps.forEach((st,i)=>{
+      const prev = i===0 || done(s.id,i-1);
+      const cls = done(s.id,i)?"done":(ok&&prev?"":"lock");
+      const ic = done(s.id,i)?"✓":{lectura:"📘",video:"▶️",quiz:"✏️"}[st.t];
+      h += `<button class="node ${cls}" ${cls==="lock"?"disabled":""} onclick="lesson('${s.id}',${i})">${ic}</button><div class="lbl">${st.titulo}</div>`;
+    });
+    h += `</div>`;
+  });
+  h += `<div class="sec"><h3>🏅 Mis insignias</h3></div><div class="card badges">` +
+    SECTIONS.map(s=>`<div class="badge ${secDone(s.id)?"on":""}"><span class="ic">${s.badge.ic}</span><b>${s.badge.n}</b><br><span class="small">${s.titulo}</span></div>`).join("") +
+    `<div class="badge"><span class="ic">🌟</span><b>Consultor</b><br><span class="small">${SECTIONS.length} de 12</span></div></div>`;
+  $("app").innerHTML = h;
+}
+
+function lesson(sid,i){
+  const s = SECTIONS.find(x=>x.id===sid), st = s.steps[i];
+  let h = `<button class="back" onclick="home()">← Volver al mapa</button><div class="card"><h2 style="margin-top:0">${st.titulo}</h2>`;
+  if(st.desc) h += `<p>${st.desc}</p>`;
+  if(st.embed) h += `<div class="frame doc"><iframe src="${st.embed}" loading="lazy"></iframe></div>`;
+  if(st.videos) h += st.videos.map(v=>`<div class="vid"><b>${v.n}</b><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}" allowfullscreen loading="lazy"></iframe></div></div>`).join("");
+  if(st.link) h += `<p><a class="btn alt" href="${st.link}" target="_blank" rel="noopener">${st.t==="quiz"?"Abrir cuestionario":"Abrir en nueva pestaña"}</a></p>`;
+  if(st.t==="lectura" && !st.link && !st.embed) h += `<p class="small">⚠️ Falta agregar el enlace de la lectura.</p>`;
+  h += `<p style="margin-top:18px">${done(sid,i)?`<span class="small">✓ Ya completaste este paso</span>`:`<button class="btn" onclick="complete('${sid}',${i})">${st.t==="quiz"?"Ya lo contesté":"Marcar como completado"}</button>`}</p></div>`;
+  $("app").innerHTML = h; scrollTo(0,0);
+}
+
+function complete(sid,i){
+  prog[sid+":"+i]=true; save();
+  const s = SECTIONS.find(x=>x.id===sid);
+  if(secDone(sid)) toast(`🎉 ¡Insignia "${s.badge.n}" desbloqueada! +${XP_STEP+XP_SECTION} XP`);
+  else toast(`✅ ¡Bien hecho! +${XP_STEP} XP`);
+  home();
+}
+</script>
+</body>
+</html>
