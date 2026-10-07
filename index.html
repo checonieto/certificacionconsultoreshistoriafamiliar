@@ -58,6 +58,19 @@ main{max-width:680px;margin:0 auto;padding:18px}
 .btn.b{background:var(--blue);box-shadow:0 5px 0 #1d5a85}
 .done-msg{color:var(--gd);font-weight:700}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--gk);color:#fff;padding:14px 22px;border-radius:16px;font-weight:700;display:none;z-index:9;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.tbtn.rs{border-color:#e08a8a;color:#b83b3b;font-weight:700}
+.shelf{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.sb{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.3);display:grid;place-items:center;font-size:22px;filter:grayscale(1) opacity(.55)}
+.sb.on{background:#fff;filter:none;box-shadow:0 3px 0 var(--gold2)}
+.ov{position:fixed;inset:0;background:rgba(30,45,15,.7);display:grid;place-items:center;z-index:20;padding:20px}
+.mod{background:#fff;border-radius:26px;padding:30px 24px;text-align:center;max-width:360px;width:100%;box-shadow:0 8px 0 var(--gk);animation:pop .4s}
+.mod .big{font-size:96px;line-height:1;display:inline-block;animation:spin .8s}
+.mod h2{margin:10px 0 4px;color:var(--gk)}
+.mod p{margin:0 0 16px;color:var(--m)}
+.cf{position:fixed;top:-40px;font-size:26px;animation:fall 2.6s linear forwards;z-index:21;pointer-events:none}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+@keyframes spin{from{transform:rotate(-200deg) scale(.2)}}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
 footer{text-align:center;color:var(--m);font-size:12px;padding:10px 0 30px}
 footer a{color:var(--m);cursor:pointer;text-decoration:underline}
 </style>
@@ -65,7 +78,7 @@ footer a{color:var(--m);cursor:pointer;text-decoration:underline}
 <body>
 <header>
   <div class="logo"><span>🌳</span><div>Consultores de<br>Historia Familiar</div></div>
-  <div class="hbtn"><button class="tbtn" id="tb" onclick="toggleTest()">🔓 Modo prueba</button><div class="xp" id="xp"></div></div>
+  <div class="hbtn" style="flex-wrap:wrap;justify-content:flex-end"><button class="tbtn rs" onclick="reset()">🔄 Reiniciar certificación</button><button class="tbtn" id="tb" onclick="toggleTest()">🔓 Modo prueba</button><div class="xp" id="xp"></div></div>
 </header>
 <main id="app"></main>
 <div class="toast" id="toast"></div>
@@ -132,7 +145,8 @@ function home(){
   const tot=C.reduce((a,c)=>a+c.it.length,0), n=Object.keys(prog).length, fin=C.filter((_,c)=>chDone(c)).length;
   let h=`<div class="hero"><h2>Tu camino a Consultor</h2><p>Completa cada capítulo, gana insignias y avanza paso a paso.</p>
   <div class="bar"><i style="width:${n/tot*100}%"></i></div>
-  <div class="stats"><span>✅ ${n}/${tot} pasos</span><span>🏅 ${fin}/${C.length} insignias</span></div></div>`;
+  <div class="stats"><span>✅ ${n}/${tot} pasos</span><span>🏅 ${fin}/${C.length} insignias</span></div>
+  <div class="shelf">${C.map((c,ci)=>`<div class="sb ${chDone(ci)?"on":""}" title="${c.b[0]}">${c.b[1]}</div>`).join("")}</div></div>`;
   C.forEach((c,ci)=>{
     const open=chOpen(ci), L=labels(ci), ok=chDone(ci);
     let cur=c.it.findIndex((_,i)=>!done(ci,i));
@@ -163,9 +177,16 @@ function lesson(ci,i){
 
 function complete(ci,i){
   prog[C[ci].id+":"+i]=true; save();
-  if(chDone(ci)) toast(`🎉 ¡Insignia "${C[ci].b[0]}" ${C[ci].b[1]} desbloqueada! +${XP_STEP+XP_CH} XP`);
-  else toast(`✅ ¡Muy bien! +${XP_STEP} XP`);
   home();
+  if(chDone(ci)) celebrate(ci);
+  else toast(`✅ ¡Muy bien! +${XP_STEP} XP`);
+}
+function celebrate(ci){
+  const c=C[ci], all=C.every((_,k)=>chDone(k));
+  const o=document.createElement("div"); o.className="ov";
+  o.innerHTML=`<div class="mod"><div class="big">${all?"🏆":c.b[1]}</div><h2>${all?"¡Certificación completa!":"¡Insignia desbloqueada!"}</h2><p><b>${c.b[0]}</b> · ${c.t}: ${c.s}<br>+${XP_STEP+XP_CH} XP${all?"<br>Ya eres Consultor de Historia Familiar 🌳":""}</p><button class="btn" onclick="this.closest('.ov').remove()">Continuar</button></div>`;
+  document.body.appendChild(o);
+  for(let i=0;i<24;i++){const f=document.createElement("div");f.className="cf";f.textContent=["🌳","⭐","🎉","🌿","✨"][i%5];f.style.left=Math.random()*100+"vw";f.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(f);setTimeout(()=>f.remove(),3600)}
 }
 home();
 </script>
