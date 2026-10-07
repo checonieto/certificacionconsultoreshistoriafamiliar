@@ -4,188 +4,170 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Consultores de Historia Familiar</title>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--g:#58cc02;--gd:#46a302;--b:#1cb0f6;--y:#ffc800;--bg:#f7f7f7;--c:#fff;--t:#3c3c3c;--m:#777;--l:#e5e5e5}
-@media(prefers-color-scheme:dark){:root{--bg:#131f24;--c:#1f2c34;--t:#f1f7fb;--m:#9bb;--l:#37464f}}
+:root{--g:#8cb83e;--gd:#6a9a22;--gk:#3f6212;--gl:#eef5dd;--bg:#f6f8f0;--c:#fff;--t:#2f3a26;--m:#6b7560;--l:#dde5cc;--gold:#f2b134;--gold2:#d6951a;--blue:#2a7ab0}
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--t)}
-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--c);border-bottom:2px solid var(--l);position:sticky;top:0;z-index:5}
-h1{font-size:18px;margin:0;color:var(--g)}
-.user{display:flex;align-items:center;gap:10px;font-size:14px}
-.user img{width:32px;height:32px;border-radius:50%}
-.xp{font-weight:700;color:var(--y)}
-main{max-width:640px;margin:0 auto;padding:20px}
-.btn{border:0;border-bottom:4px solid var(--gd);background:var(--g);color:#fff;font-weight:800;padding:12px 20px;border-radius:14px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;font-size:14px;text-decoration:none;display:inline-block}
-.btn:active{transform:translateY(2px);border-bottom-width:2px}
-.btn.alt{background:var(--b);border-color:#1899d6}
-.btn.ghost{background:transparent;color:var(--m);border:2px solid var(--l);border-bottom-width:4px}
-.btn[disabled]{background:var(--l);border-color:var(--l);color:var(--m);cursor:default}
-.card{background:var(--c);border:2px solid var(--l);border-radius:16px;padding:18px;margin-bottom:16px}
-#login{text-align:center;padding-top:60px}
-#login h2{font-size:26px}
-.bar{height:14px;background:var(--l);border-radius:8px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--g);transition:width .4s}
-.sec{margin:28px 0 8px;display:flex;justify-content:space-between;align-items:center}
-.sec h3{margin:0}
-.path{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:10px}
-.node{width:76px;height:76px;border-radius:50%;border:0;border-bottom:7px solid var(--gd);background:var(--g);font-size:30px;cursor:pointer;color:#fff;position:relative}
-.node.done{background:var(--y);border-color:#d9a900}
-.node.lock{background:var(--l);border-color:#c9c9c9;cursor:not-allowed;filter:grayscale(1)}
-.node:nth-child(2){transform:translateX(34px)}.node:nth-child(3){transform:translateX(-10px)}.node:nth-child(4){transform:translateX(-34px)}
-.lbl{font-size:12px;color:var(--m);text-align:center;margin-top:-6px}
-.badges{display:flex;gap:12px;flex-wrap:wrap}
-.badge{width:96px;text-align:center;font-size:12px}
-.badge .ic{font-size:40px;display:block;filter:grayscale(1) opacity(.35)}
-.badge.on .ic{filter:none}
-.back{background:none;border:0;color:var(--b);font-weight:700;cursor:pointer;margin-bottom:10px;font-size:15px}
-.frame{position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;margin:10px 0;background:#000}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--t)}
+header{background:var(--c);border-bottom:3px solid var(--g);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--gk);font-size:17px}
+.logo span{font-size:28px}
+.hbtn{display:flex;gap:8px;align-items:center}
+.xp{background:var(--gold);color:#fff;font-weight:800;padding:6px 12px;border-radius:20px;font-size:14px;box-shadow:0 3px 0 var(--gold2)}
+.tbtn{border:2px solid var(--l);background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer;font-size:13px;color:var(--m)}
+main{max-width:680px;margin:0 auto;padding:18px}
+.hero{background:linear-gradient(135deg,var(--gd),var(--g) 60%,#b5d56a);color:#fff;border-radius:22px;padding:26px 22px;position:relative;overflow:hidden;margin-bottom:22px;box-shadow:0 6px 0 var(--gk)}
+.hero:after{content:"🌳";position:absolute;right:-10px;bottom:-24px;font-size:130px;opacity:.22}
+.hero h2{margin:0 0 4px;font-size:24px}
+.hero p{margin:0 0 16px;opacity:.95}
+.bar{height:16px;background:rgba(255,255,255,.35);border-radius:10px;overflow:hidden;max-width:420px}
+.bar i{display:block;height:100%;background:#fff;border-radius:10px;transition:width .5s}
+.stats{display:flex;gap:16px;margin-top:10px;font-weight:700;font-size:14px;flex-wrap:wrap}
+.chap{background:var(--c);border:2px solid var(--l);border-radius:20px;margin-bottom:22px;overflow:hidden}
+.chap.lock{opacity:.6}
+.ch{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--gl);border-bottom:2px solid var(--l)}
+.num{width:46px;height:46px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;box-shadow:0 4px 0 var(--gd);flex:none}
+.chap.fin .num{background:var(--gold);box-shadow:0 4px 0 var(--gold2)}
+.ch b{display:block;font-size:17px;color:var(--gk)}
+.ch small{color:var(--m)}
+.path{display:flex;flex-direction:column;align-items:center;padding:20px 0 10px;background:repeating-linear-gradient(to bottom,var(--l) 0 8px,transparent 8px 16px) center/3px 100% no-repeat}
+.step{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;width:130px}
+.node{width:70px;height:70px;border-radius:50%;border:0;background:var(--g);box-shadow:0 7px 0 var(--gd);font-size:28px;cursor:pointer;color:#fff;transition:.1s}
+.node:active{transform:translateY(4px);box-shadow:0 3px 0 var(--gd)}
+.node.done{background:var(--gold);box-shadow:0 7px 0 var(--gold2)}
+.node.cur{animation:pulse 1.6s infinite}
+.node.lk{background:#d9dfcc;box-shadow:0 7px 0 #bfc7ae;cursor:not-allowed;filter:grayscale(.6)}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.lbl{font-size:12px;font-weight:600;color:var(--m);margin-top:10px;text-align:center;background:var(--bg);padding:0 4px}
+.reward{display:flex;align-items:center;gap:12px;margin:6px 18px 18px;padding:12px 16px;border-radius:14px;background:var(--gl);border:2px dashed var(--g)}
+.reward.on{background:#fff6dc;border-color:var(--gold)}
+.reward .ic{font-size:36px;filter:grayscale(1) opacity(.4)}
+.reward.on .ic{filter:none}
+.reward small{display:block;color:var(--m)}
+.final{text-align:center;padding:22px;border-radius:20px;background:#fff;border:2px solid var(--l)}
+.final .ic{font-size:60px;filter:grayscale(1) opacity(.35)}
+.final.on .ic{filter:none}
+.back{background:none;border:0;color:var(--gd);font-weight:800;cursor:pointer;font-size:15px;margin-bottom:12px}
+.lesson{background:var(--c);border:2px solid var(--l);border-radius:20px;padding:20px}
+.lesson h2{margin:0 0 4px;color:var(--gk)}
+.tag{color:var(--m);font-size:14px;margin-bottom:12px}
+.frame{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;margin:12px 0}
+.frame.doc{padding-top:125%}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.frame.doc{padding-top:120%}
-.vid{border-top:1px solid var(--l);padding-top:12px;margin-top:12px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;padding:14px 22px;border-radius:14px;font-weight:700;display:none;z-index:9;text-align:center}
-.small{font-size:13px;color:var(--m)}
+.btn{display:inline-block;border:0;background:var(--g);color:#fff;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:13px 22px;border-radius:14px;box-shadow:0 5px 0 var(--gd);cursor:pointer;text-decoration:none;font-size:14px;margin:4px 6px 8px 0}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--gd)}
+.btn.b{background:var(--blue);box-shadow:0 5px 0 #1d5a85}
+.done-msg{color:var(--gd);font-weight:700}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--gk);color:#fff;padding:14px 22px;border-radius:16px;font-weight:700;display:none;z-index:9;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+footer{text-align:center;color:var(--m);font-size:12px;padding:10px 0 30px}
+footer a{color:var(--m);cursor:pointer;text-decoration:underline}
 </style>
 </head>
 <body>
 <header>
-  <h1>🌳 Consultores de Historia Familiar</h1>
-  <div class="user" id="userbox" hidden>
-    <span class="xp" id="xp"></span><img id="pic" alt=""><button class="btn ghost" style="padding:6px 10px" onclick="logout()">Salir</button>
-  </div>
+  <div class="logo"><span>🌳</span><div>Consultores de<br>Historia Familiar</div></div>
+  <div class="hbtn"><button class="tbtn" id="tb" onclick="toggleTest()">🔓 Modo prueba</button><div class="xp" id="xp"></div></div>
 </header>
-
-<main id="login">
-  <h2>¡Bienvenido!</h2>
-  <p class="small">Inicia sesión con tu cuenta de Google para guardar tu progreso y ganar insignias.</p>
-  <div id="gbtn" style="display:flex;justify-content:center;margin-top:20px"></div>
-</main>
-
-<main id="app" hidden></main>
+<main id="app"></main>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ CONFIGURACIÓN ============ */
-// 1) Pega aquí tu Client ID de Google Cloud Console (Credenciales > OAuth > Aplicación web)
-// Mientras sea false, el sitio abre directo en modo demo (sin login). Cambia a true cuando activemos la autenticación.
-const REQUIRE_LOGIN = false;
-const GOOGLE_CLIENT_ID = "TU_CLIENT_ID.apps.googleusercontent.com";
-// 2) Opcional: restringe a un dominio (ej. "midominio.org"). Déjalo vacío para permitir cualquier cuenta de Google.
-const ALLOWED_DOMAIN = "";
-
-/* ============ CONTENIDO (agrega aquí las 12 secciones) ============ */
-// pasos: {t:"lectura"|"video"|"quiz", ...}
-const SECTIONS = [
- { id:"intro", titulo:"Introducción", sub:"Mi llamamiento como consultor", icon:"📖", badge:{n:"Llamado", ic:"🎖️"},
-   steps:[
-    {t:"lectura", titulo:"Lee el cuadernillo", desc:"Cuadernillo PDF: Mi llamamiento como consultor.", embed:"https://drive.google.com/file/d/1Mm8itovRuzTEz-EAi-DTcyuSZkC3MMzC/preview", link:"https://drive.google.com/file/d/1Mm8itovRuzTEz-EAi-DTcyuSZkC3MMzC/view"},
-    {t:"video", titulo:"Mira los videos (en orden)", videos:[
-      {n:"1. Mi llamamiento como consultor", id:"0z-S2GcvtMA"},
-      {n:"2. Genaro como consultor", id:"svaU-3OQ4i4"},
-      {n:"3. En qué consiste mi llamamiento", id:"aqmkkYuXXMk"},
-      {n:"4. Por qué fui llamado como consultor", id:"hwRLNbkPHy0"}]},
-    {t:"quiz", titulo:"Lee esta presentación", desc:"Abre la presentación/cuestionario y respóndelo.", link:"https://docs.google.com/presentation/d/e/2PACX-1vR1yrsIXnT1Ih_DSd8bWv_fNAUQYglrw_RRrmwRw07_2LRKzNRKL1nyYNVV9tjnfoF65POmo-WK1Spa/pub?start=false&loop=false&delayms=60000"}
-   ]},
- { id:"cap1", titulo:"Capítulo 1", sub:"Introducción a FamilySearch", icon:"🔎", badge:{n:"Explorador", ic:"🧭"},
-   steps:[
-    {t:"lectura", titulo:"Lee el primer capítulo", desc:"Lee el capítulo 1 completo.", link:""}, // TODO: pega aquí el link del capítulo
-    {t:"video", titulo:"Mira los videos", videos:[
-      {n:"Video 1", id:"mxOiiC9XTIM"},
-      {n:"Video 2", id:"hiFtNRFkOx0"}]},
-    {t:"quiz", titulo:"Lee esta presentación", desc:"Responde el formulario de Google.", link:"https://forms.gle/CigjGSsz7t4hahnXA"}
-   ]}
+/* ===== CONTENIDO =====
+ d=PDF de Drive (id) · v=video YouTube (id) · s=presentación (id) · q=cuestionario (url) · a=apps (android, ios) */
+const SL = "https://docs.google.com/presentation/d/e/";
+const C = [
+ {id:"intro", t:"Introducción", s:"Mi llamamiento como consultor", b:["Llamado","🎖️"], it:[
+  ["d","1wR9iiJakbHtSrN457dXiatlBOu7Fyv61"],["v","0z-S2GcvtMA"],["v","svaU-3OQ4i4"],["v","aqmkkYuXXMk"],["v","hwRLNbkPHy0"],
+  ["q","https://forms.gle/rFPUfvs3RBDb5jAQ9"]]},
+ {id:"c1", t:"Capítulo 1", s:"Introducción a FamilySearch", b:["Explorador","🧭"], it:[
+  ["v","mxOiiC9XTIM"],["v","hiFtNRFkOx0"],
+  ["s","2PACX-1vRJ4aW-6iCMCfJML-zLBQ_EdtbNZaf6XlsCvWXA3QS7mqpmrL1KFsiJt-64Q8sLQQJY6xVnEfHoQRGR"],
+  ["d","1pYzVk3jEHj3n263U9-pSbM5aGPYhbfR9"],
+  ["q","https://forms.gle/CigjGSsz7t4hahnXA"]]},
+ {id:"c2", t:"Capítulo 2", s:"Cuentas FamilySearch", b:["Conectado","🔑"], it:[
+  ["v","XB6VaNIfLP0"],
+  ["s","2PACX-1vRIGOheHH9TUCWiPRHoF7K4_EknES20BLu4DGtPsCJHzJG5V6Z5xcodE8lXOhhqQG1ttt6Beu8EjnN_"],
+  ["q","https://forms.gle/5XuAzgH3JuzDwFnL8"]]},
+ {id:"c3", t:"Capítulo 3", s:"Árbol Familiar, Parte 1", b:["Raíces","🌱"], it:[
+  ["v","n9UCcf1nDb8"],["v","G6J24CnOXjs"],
+  ["s","2PACX-1vQM4b4OcIOVDqKx9u_8FycoiOTqY_XN3nlnIyisdyD-EQbH3SfvEItgi_h8dMGdDGlJCp-Y6NT4VnhF"],
+  ["q","https://docs.google.com/forms/d/e/1FAIpQLSdAgO4VGDC_07p0n78B_lWaQYe4aLXfCSIqPubVjw0cE1zOGQ/viewform"]]},
+ {id:"c4", t:"Capítulo 4", s:"Árbol Familiar, Parte 2", b:["Ramas","🌿"], it:[
+  ["v","528idVNcX90"],
+  ["s","2PACX-1vQd57Y3qlLZV8xXsJGqxyCfCsWmZ5WVe-X0CiZ8dPF42GN7HrY4neVzNydmyP7_kr3CFb_dYLOopag1"],
+  ["q","https://forms.gle/Gj1viF2TTMzs59mU8"]]},
+ {id:"c5", t:"Capítulo 5", s:"Ordenanzas", b:["Templo","🏛️"], it:[
+  ["v","f-uzXDzB1Qc"],["v","VNbVL7G8trI"],["v","zUfBxzqXh7Y"],
+  ["s","2PACX-1vQxcCvRWv-xXn0TGMA5JiVeR4e51_HlRXqNQLvcm1MoaHCzQXyOM8knoD_BAn2qmKXK2AgjSq1cdfry"],
+  ["q","https://forms.gle/foX8XwHQM5atJjfL8"]]},
+ {id:"c6", t:"Capítulo 6", s:"Permisos para casos de 110 años", b:["Guardián","🛡️"], it:[
+  ["v","c1F2tNLmeDw"],
+  ["s","2PACX-1vTdKWrkO-mblqI3lMl3WZtFcOY0-D-059r8-LuIE8ESU1MDLVXWDQArTLJYax4PZ0-TPGHdTmPsxJJq"],
+  ["q","https://docs.google.com/forms/d/e/1FAIpQLSfzvF_ldETOzMeuVvPYwZB-WPaS8ISP3uUv5kWmavkL7iX7uQ/viewform"]]},
+ {id:"c7", t:"Capítulo 7", s:"Indexación y Revisión", b:["Indexador","🔍"], it:[
+  ["v","-jVcQDHQMlQ"],["v","c6pUg2pjSyk"],
+  ["a","https://play.google.com/store/apps/details?id=org.familysearch.mobile.idx.review&hl=es_419","https://apps.apple.com/mx/app/familysearch-participa/id1567446332"],
+  ["q","https://docs.google.com/forms/d/e/1FAIpQLSdv7tbqbNfSb_KBytozu5gn37mxjBVKu-oS13TdozSGkYujZg/viewform"]]}
 ];
-const XP_STEP = 10, XP_SECTION = 30;
+const XP_STEP=10, XP_CH=30, SK="fs_prog_v1";
+const ICON={v:"▶️",s:"📊",d:"📘",q:"✏️",a:"📱"};
 
-/* ============ ESTADO ============ */
-let user = null, prog = {};
-const $ = id => document.getElementById(id);
-const key = () => "cons_prog_" + user.sub;
-const save = () => localStorage.setItem(key(), JSON.stringify(prog));
-// Nota: ahora el progreso se guarda en el navegador. Para guardarlo en Hostinger (MySQL/PHP) reemplaza save()/load() por fetch() a tu API.
-function load(){ try{prog = JSON.parse(localStorage.getItem(key())) || {}}catch(e){prog={}} }
-const done = (s,i) => !!prog[s+":"+i];
-const secDone = s => SECTIONS.find(x=>x.id===s).steps.every((_,i)=>done(s,i));
-const unlocked = idx => idx===0 || secDone(SECTIONS[idx-1].id);
-const totalXP = () => Object.keys(prog).filter(k=>prog[k]===true).length*XP_STEP + SECTIONS.filter(s=>secDone(s.id)).length*XP_SECTION;
+/* ===== ESTADO ===== */
+let prog={}, test=false;
+try{prog=JSON.parse(localStorage.getItem(SK))||{}}catch(e){}
+const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(prog))}catch(e){}};
+const done=(c,i)=>!!prog[C[c].id+":"+i];
+const chDone=c=>C[c].it.every((_,i)=>done(c,i));
+const chOpen=c=>test||c===0||chDone(c-1);
+const stepOpen=(c,i)=>test||(chOpen(c)&&(i===0||done(c,i-1)));
+const xp=()=>Object.keys(prog).length*XP_STEP+C.filter((_,c)=>chDone(c)).length*XP_CH;
+function labels(c){const n={v:0};return C[c].it.map(x=>{if(x[0]==="v"){n.v++;return"Video "+n.v}return{d:"Lectura (PDF)",s:"Presentación",q:"Cuestionario",a:"App móvil"}[x[0]]})}
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",2800)}
+function toggleTest(){test=!test;$("tb").textContent=test?"🔒 Salir de prueba":"🔓 Modo prueba";home()}
+function reset(){if(confirm("¿Borrar todo tu progreso?")){prog={};save();home()}}
 
-/* ============ GOOGLE LOGIN ============ */
-function parseJwt(t){const b=t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(atob(b).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join("")))}
-function onCred(r){
-  const p = parseJwt(r.credential);
-  if(ALLOWED_DOMAIN && p.hd!==ALLOWED_DOMAIN){alert("Usa tu cuenta @"+ALLOWED_DOMAIN);return}
-  user = {sub:p.sub,name:p.name,email:p.email,pic:p.picture};
-  localStorage.setItem("cons_user",JSON.stringify({user,exp:p.exp*1000}));
-  start();
-}
-function logout(){localStorage.removeItem("cons_user");if(window.google)google.accounts.id.disableAutoSelect();location.reload()}
-function initGoogle(){
-  if(!window.google){return setTimeout(initGoogle,200)}
-  google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onCred});
-  google.accounts.id.renderButton($("gbtn"),{theme:"outline",size:"large",text:"signin_with",locale:"es"});
-}
-window.onload = () => {
-  if(!REQUIRE_LOGIN){user={sub:"demo",name:"Estudiante",email:"",pic:""};return start()}
-  try{const s=JSON.parse(localStorage.getItem("cons_user"));if(s&&s.exp>Date.now()){user=s.user;return start()}}catch(e){}
-  initGoogle();
-};
-
-/* ============ UI ============ */
-function start(){
-  load();
-  $("login").hidden=true;$("app").hidden=false;$("userbox").hidden=false;
-  if(user.pic) $("pic").src=user.pic; else $("pic").style.display="none";
-  if(!REQUIRE_LOGIN){
-    const b=document.querySelector("#userbox button");
-    b.textContent="Reiniciar demo";
-    b.onclick=()=>{if(confirm("¿Borrar tu progreso de prueba?")){localStorage.removeItem(key());prog={};home()}};
-  }
-  home();
-}
-function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",2600)}
-function updXP(){$("xp").textContent="⚡ "+totalXP()+" XP"}
-
+/* ===== VISTAS ===== */
 function home(){
-  updXP();
-  const total = SECTIONS.reduce((a,s)=>a+s.steps.length,0);
-  const n = SECTIONS.reduce((a,s)=>a+s.steps.filter((_,i)=>done(s.id,i)).length,0);
-  let h = `<div class="card"><b>¡Hola, ${user.name.split(" ")[0]}!</b><div class="small" style="margin:4px 0 10px">Progreso del curso: ${n} de ${total} pasos</div><div class="bar"><i style="width:${total?n/total*100:0}%"></i></div></div>`;
-  SECTIONS.forEach((s,idx)=>{
-    const ok = unlocked(idx);
-    h += `<div class="sec"><h3>${s.icon} Sección ${idx+1}: ${s.titulo}</h3><span class="small">${s.sub}</span></div><div class="path">`;
-    s.steps.forEach((st,i)=>{
-      const prev = i===0 || done(s.id,i-1);
-      const cls = done(s.id,i)?"done":(ok&&prev?"":"lock");
-      const ic = done(s.id,i)?"✓":{lectura:"📘",video:"▶️",quiz:"✏️"}[st.t];
-      h += `<button class="node ${cls}" ${cls==="lock"?"disabled":""} onclick="lesson('${s.id}',${i})">${ic}</button><div class="lbl">${st.titulo}</div>`;
+  $("xp").textContent="⚡ "+xp()+" XP";
+  const tot=C.reduce((a,c)=>a+c.it.length,0), n=Object.keys(prog).length, fin=C.filter((_,c)=>chDone(c)).length;
+  let h=`<div class="hero"><h2>Tu camino a Consultor</h2><p>Completa cada capítulo, gana insignias y avanza paso a paso.</p>
+  <div class="bar"><i style="width:${n/tot*100}%"></i></div>
+  <div class="stats"><span>✅ ${n}/${tot} pasos</span><span>🏅 ${fin}/${C.length} insignias</span></div></div>`;
+  C.forEach((c,ci)=>{
+    const open=chOpen(ci), L=labels(ci), ok=chDone(ci);
+    let cur=c.it.findIndex((_,i)=>!done(ci,i));
+    h+=`<div class="chap ${open?"":"lock"} ${ok?"fin":""}"><div class="ch"><div class="num">${ok?"✓":ci===0?"★":ci}</div><div><b>${c.t}</b><small>${c.s}</small></div></div><div class="path">`;
+    c.it.forEach((x,i)=>{
+      const d=done(ci,i), o=stepOpen(ci,i), off=[0,38,0,-38][i%4];
+      h+=`<div class="step" style="transform:translateX(${off}px)"><button class="node ${d?"done":o?(i===cur?"cur":""):"lk"}" ${o?"":"disabled"} onclick="lesson(${ci},${i})">${d?"✓":o?ICON[x[0]]:"🔒"}</button><div class="lbl">${L[i]}</div></div>`;
     });
-    h += `</div>`;
+    h+=`</div><div class="reward ${ok?"on":""}"><span class="ic">${c.b[1]}</span><div><b>Insignia: ${c.b[0]}</b><small>${ok?"¡Desbloqueada!":"Completa los "+c.it.length+" pasos"}</small></div></div></div>`;
   });
-  h += `<div class="sec"><h3>🏅 Mis insignias</h3></div><div class="card badges">` +
-    SECTIONS.map(s=>`<div class="badge ${secDone(s.id)?"on":""}"><span class="ic">${s.badge.ic}</span><b>${s.badge.n}</b><br><span class="small">${s.titulo}</span></div>`).join("") +
-    `<div class="badge"><span class="ic">🌟</span><b>Consultor</b><br><span class="small">${SECTIONS.length} de 12</span></div></div>`;
-  $("app").innerHTML = h;
+  const all=C.every((_,c)=>chDone(c));
+  h+=`<div class="final ${all?"on":""}"><div class="ic">🏆</div><h3 style="margin:6px 0">Consultor de Historia Familiar</h3><div class="tag">${all?"¡Felicidades! Completaste toda la certificación.":"Completa los 8 capítulos para obtener tu certificación."}</div></div>`;
+  h+=`<footer><a onclick="reset()">Reiniciar progreso</a></footer>`;
+  $("app").innerHTML=h; scrollTo(0,0);
 }
 
-function lesson(sid,i){
-  const s = SECTIONS.find(x=>x.id===sid), st = s.steps[i];
-  let h = `<button class="back" onclick="home()">← Volver al mapa</button><div class="card"><h2 style="margin-top:0">${st.titulo}</h2>`;
-  if(st.desc) h += `<p>${st.desc}</p>`;
-  if(st.embed) h += `<div class="frame doc"><iframe src="${st.embed}" loading="lazy"></iframe></div>`;
-  if(st.videos) h += st.videos.map(v=>`<div class="vid"><b>${v.n}</b><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}" allowfullscreen loading="lazy"></iframe></div></div>`).join("");
-  if(st.link) h += `<p><a class="btn alt" href="${st.link}" target="_blank" rel="noopener">${st.t==="quiz"?"Abrir cuestionario":"Abrir en nueva pestaña"}</a></p>`;
-  if(st.t==="lectura" && !st.link && !st.embed) h += `<p class="small">⚠️ Falta agregar el enlace de la lectura.</p>`;
-  h += `<p style="margin-top:18px">${done(sid,i)?`<span class="small">✓ Ya completaste este paso</span>`:`<button class="btn" onclick="complete('${sid}',${i})">${st.t==="quiz"?"Ya lo contesté":"Marcar como completado"}</button>`}</p></div>`;
-  $("app").innerHTML = h; scrollTo(0,0);
+function lesson(ci,i){
+  const c=C[ci], x=c.it[i], L=labels(ci)[i], k=x[0];
+  let h=`<button class="back" onclick="home()">← Volver al camino</button><div class="lesson"><h2>${L}</h2><div class="tag">${c.t}: ${c.s}</div>`;
+  if(k==="v") h+=`<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${x[1]}" allowfullscreen loading="lazy"></iframe></div>`;
+  if(k==="s") h+=`<div class="frame"><iframe src="${SL}${x[1]}/embed?start=false&loop=false&delayms=60000" allowfullscreen loading="lazy"></iframe></div><a class="btn b" target="_blank" rel="noopener" href="${SL}${x[1]}/pub?start=true&loop=false&delayms=60000">Abrir en pantalla completa</a>`;
+  if(k==="d") h+=`<div class="frame doc"><iframe src="https://drive.google.com/file/d/${x[1]}/preview" loading="lazy"></iframe></div><a class="btn b" target="_blank" rel="noopener" href="https://drive.google.com/file/d/${x[1]}/view">Abrir en Drive</a>`;
+  if(k==="q") h+=`<p>Abre el cuestionario, contéstalo y regresa aquí para marcarlo como completado.</p><a class="btn b" target="_blank" rel="noopener" href="${x[1]}">Abrir cuestionario</a>`;
+  if(k==="a") h+=`<p>Descarga la app de FamilySearch para indexar y revisar desde tu teléfono.</p><a class="btn b" target="_blank" rel="noopener" href="${x[1]}">Android (Google Play)</a><a class="btn b" target="_blank" rel="noopener" href="${x[2]}">iPhone (App Store)</a>`;
+  h+=`<div style="margin-top:14px">${done(ci,i)?`<span class="done-msg">✓ Paso completado</span>`:`<button class="btn" onclick="complete(${ci},${i})">${k==="q"?"Ya lo contesté":k==="a"?"Ya la tengo":"Completado"}</button>`}</div></div>`;
+  $("app").innerHTML=h; scrollTo(0,0);
 }
 
-function complete(sid,i){
-  prog[sid+":"+i]=true; save();
-  const s = SECTIONS.find(x=>x.id===sid);
-  if(secDone(sid)) toast(`🎉 ¡Insignia "${s.badge.n}" desbloqueada! +${XP_STEP+XP_SECTION} XP`);
-  else toast(`✅ ¡Bien hecho! +${XP_STEP} XP`);
+function complete(ci,i){
+  prog[C[ci].id+":"+i]=true; save();
+  if(chDone(ci)) toast(`🎉 ¡Insignia "${C[ci].b[0]}" ${C[ci].b[1]} desbloqueada! +${XP_STEP+XP_CH} XP`);
+  else toast(`✅ ¡Muy bien! +${XP_STEP} XP`);
   home();
 }
+home();
 </script>
 </body>
 </html>
