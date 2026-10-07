@@ -157,7 +157,7 @@ function chestSVG(open){
   return `<svg viewBox="0 0 100 80"><path d="M12 32Q10 2 50 2Q90 2 88 32z" fill="#8a5420"/><rect x="8" y="34" width="84" height="40" rx="5" fill="#a0642a"/>${gold}<ellipse cx="50" cy="34" rx="42" ry="7" fill="#ffd95a"/><circle cx="34" cy="30" r="6" fill="#f2b134"/><circle cx="52" cy="27" r="6" fill="#ffe27a"/><circle cx="68" cy="31" r="6" fill="#f2b134"/><rect x="42" y="50" width="16" height="14" rx="3" fill="#f2b134" stroke="#d6951a" stroke-width="2"/></svg>`;
 }
 const R=[
- {t:"Recursos para Líderes",ic:"🧭",it:[["v","H0tEk0bUUJI"],["d","15aFk3Vpf0t3aGSOuZ94E52SHipNwR6Ry"],["d","1Z1RVQGodtYP8zH0mS_u1DuVhRIQmXA1p"],["d","154CG4bb-lL0Tcjk0LnLb1oT3zb1d2_tY"],["d","1ID5g_dYt4Z1DuwAcjqmXfkkDKelYAdzh"]]},
+ {t:"Recursos para Líderes",ic:"🧭",it:[["v","H0tEk0bUUJI"],["d","15aFk3Vpf0t3aGSOuZ94E52SHipNwR6Ry"],["d","1Z1RVQGodtYP8zH0mS_u1DuVhRIQmXA1p"],["d","154CG4bb-lL0Tcjk0LnLb1oT3zb1d2_tY"],["d","1ID5g_dYt4Z1DuwAcjqmXfkkDKelYAdzh","Video 2"]]},
  {t:"Recursos y materiales para niños",ic:"🧒",it:[["d","1I_qC9dNIkSdaYVqG77FtVErfcLUubHWr"],["d","1dLN8iM18NsgoWCn4Dg_V1h_LcUGanR61"],["d","1Ae3i-fa5F7dFaj3cV6DqOwd7xnnAdf7g"],["d","1_bMqKbuAVd5q8Dle5JeMnYSMkytcrcHO"]]},
  {t:"Materiales sobre Historia Familiar y Templo",ic:"🏛️",it:[["d","1uMBnChwiZ2YMWhpOx7FmoDvwkojiiADt"],["l","https://www.familysearch.org/es/gettingstarted/","FamilySearch: Primeros pasos"],["d","1SmKFM7FcKQl6gtne4-mHZkpzEF1EWFcj"]]}
 ];
@@ -165,9 +165,9 @@ function openChest(){$("chest").classList.add("shake");setTimeout(showRes,650)}
 function showRes(){
   let h=`<button class="back" onclick="home()">← Volver al camino</button><div class="rtop"><div class="chest">${chestSVG(true)}</div><h2 style="margin:8px 0 2px;color:var(--gk)">🎁 Otros Recursos</h2><div class="tag">Material extra. No forma parte de la certificación y siempre está disponible.</div></div>`;
   R.forEach(g=>{let n=0;h+=`<div class="rsec"><h3>${g.ic} ${g.t}</h3>`;
-    g.it.forEach(x=>{const k=x[0],lab=k==="v"?"Video":k==="l"?x[2]:"Material "+(++n);
+    g.it.forEach(x=>{const k=x[0],lab=k==="v"?"Video 1":x[2]||"Material "+(++n);
       const open=k==="v"?"https://www.youtube.com/watch?v="+x[1]:k==="l"?x[1]:"https://drive.google.com/file/d/"+x[1]+"/view";
-      h+=`<div class="rr"><div class="rh"><span>${{v:"▶️",d:"📄",l:"🌐"}[k]}</span><b>${lab}</b>${k==="l"?"":`<button class="btn b sm" onclick="pv(this,'${k}','${x[1]}')">Ver</button>`}<a class="btn sm" target="_blank" rel="noopener" href="${open}">Abrir</a></div><div class="pv"></div></div>`});
+      h+=`<div class="rr"><div class="rh"><span>${k==="d"&&x[2]?"▶️":{v:"▶️",d:"📄",l:"🌐"}[k]}</span><b>${lab}</b>${k==="l"?"":`<button class="btn b sm" onclick="pv(this,'${k}','${x[1]}')">Ver</button>`}<a class="btn sm" target="_blank" rel="noopener" href="${open}">Abrir</a></div><div class="pv"></div></div>`});
     h+=`</div>`});
   $("app").innerHTML=h;scrollTo(0,0);
 }
